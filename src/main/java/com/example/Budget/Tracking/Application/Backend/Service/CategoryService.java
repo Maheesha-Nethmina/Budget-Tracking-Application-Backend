@@ -65,6 +65,31 @@ public class CategoryService {
         categoryRepository.delete(category);
     }
 
+    // Add this new method below your createCategory method
+    public CategoryResponse updateCategory(Long categoryId, CategoryRequest request, String username) {
+        // Find the category
+        var category = categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new RuntimeException("Category not found."));
+
+        // Verify ownership
+        if (!category.getUser().getUsername().equals(username)) {
+            throw new RuntimeException("You do not have permission to edit this category.");
+        }
+
+        // Validate the new name
+        if (request.getName() == null || request.getName().trim().isEmpty()) {
+            throw new RuntimeException("Category name cannot be empty.");
+        }
+
+        // Update details
+        category.setName(request.getName());
+        category.setType(request.getType());
+
+        // Save and return
+        var updatedCategory = categoryRepository.save(category);
+        return mapToResponse(updatedCategory);
+    }
+
     // Helper method to securely convert a Category entity into a response DTO
     private CategoryResponse mapToResponse(Category category) {
         return CategoryResponse.builder()

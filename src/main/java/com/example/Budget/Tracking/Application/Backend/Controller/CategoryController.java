@@ -50,4 +50,17 @@ public class CategoryController {
             return ResponseEntity.badRequest().body(new ErrorResponse(e.getMessage()));
         }
     }
+
+    // Add this new endpoint below your @GetMapping
+    @PutMapping("/edit/{categoryId}/{username}")
+    public ResponseEntity<?> editCategory(
+            @PathVariable Long categoryId,
+            @RequestBody CategoryRequest request,
+            @PathVariable String username) {
+        try {
+            return ResponseEntity.ok(categoryService.updateCategory(categoryId, request, username));
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(new ErrorResponse(e.getMessage()));
+        }
+    }
 }
