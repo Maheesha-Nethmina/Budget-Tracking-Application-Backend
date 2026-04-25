@@ -31,11 +31,13 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        // THE MAGIC FIX: explicitly allow all Preflight OPTIONS requests
+                        // allow all Preflight OPTIONS requests
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/categories/**").permitAll()
+                        .requestMatchers("/api/transactions/**").permitAll()
+
                         .anyRequest().authenticated()
                 );
 
