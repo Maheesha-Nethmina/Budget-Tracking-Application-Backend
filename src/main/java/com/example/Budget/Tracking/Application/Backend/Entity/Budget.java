@@ -5,33 +5,24 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
 @Entity
-@Table(name = "transactions")
+@Table(name = "budgets")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Transaction {
+public class Budget {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long transactionId;
-
-    @Column(nullable = false)
-    private String title;
+    private Long budgetId;
 
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal amount;
 
+    //format like "YYYY-MM" to track monthly budgets
     @Column(nullable = false)
-    private String type;
-
-    @Column(nullable = false)
-    private LocalDate transactionDate;
-
-    @Column(length = 500)
-    private String note;
+    private String period;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
