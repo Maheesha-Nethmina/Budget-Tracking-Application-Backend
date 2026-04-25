@@ -8,8 +8,8 @@ import java.time.LocalDate;
 public class TransactionRequest {
     private String title;
     private BigDecimal amount;
-    private String type;
+    private String type; // INCOME or EXPENSE
     private LocalDate transactionDate;
-    private String note;
+    private String note; // Optional note as required by assignment
     private Long categoryId;
 }

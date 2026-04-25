@@ -25,11 +25,12 @@ public class Transaction {
     private BigDecimal amount;
 
     @Column(nullable = false)
-    private String type;
+    private String type; // INCOME or EXPENSE
 
     @Column(nullable = false)
     private LocalDate transactionDate;
 
+    // Optional note included as per assignment requirement
     @Column(length = 500)
     private String note;
 
