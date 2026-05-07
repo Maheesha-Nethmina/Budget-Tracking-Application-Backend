@@ -29,7 +29,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
             @Param("startDate") LocalDate startDate,
             @Param("endDate") LocalDate endDate);
 
-    // NEW: Calculate total expenses for a specific category within a date range (Used for Budget Tracking)
+    //Calculate total expenses for a specific category within a date range (Used for Budget Tracking)
     @Query("SELECT COALESCE(SUM(t.amount), 0) FROM Transaction t WHERE t.user.username = :username AND t.category.categoryId = :categoryId AND t.type = 'EXPENSE' AND t.transactionDate BETWEEN :startDate AND :endDate")
     BigDecimal getTotalSpentByCategoryAndDateRange(
             @Param("username") String username,
